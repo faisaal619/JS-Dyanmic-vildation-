@@ -1,0 +1,123 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"
+/>
+<title>Validate me</title>
+<!--
+Using nothing but the DOM, validate the attached HTML
+using nothing but Javascript so that at all inputs
+have at least something entered, checked or selected.
+Your user has nothing but Internet Explorer 6!
+* no changes can be made to the html
+* get input types based on the collection document.forms
+* text input type has at least 1 char
+* checked property for radio buttons and checkboxes (at least 1)
+-->
+<script>
+// iterate through form htmlcollection inputs
+// check the input type
+// based on the input type, validate:
+// text: at least one character
+// radio/checkbox: checked property
+// select-one: value is not empty string
+// textarea: at least one character
+function validateForm(){ // only one form element in forms collection
+var formCollection = document.forms[0];
+    console.log(formCollection)
+var textInput = false;
+var radioInput = false;
+var checkInput = false;
+var dropInput = false;
+var textAreaInput = false;
+// iterate through form elements and check for "text",
+// "radio", "checkbox", "select-one", and "textarea"
+// and differentiate same type elements with element names
+for (var i = 0; i < formCollection.length; i++) {
+var element = formCollection[i];
+  
+ 
+if (element.type === 'text') {
+if (element.value !== "" && element.value.length >0) {
+textInput = true;
+}
+}
+    
+if (element.type === "radio") {
+// check if already made true since
+// there is more than one radio
+    var groupName = element.name;
+    var radioButtons = Document.getElementsByName(groupName);
+    for (let i= 0; i< radioBoxes.length; i++) {
+if (element.checked) {
+radioInput = true;
+}
+    }
+}
+if (element.type === "checkbox") {
+// check if already made true since
+// there is more than one radio
+    var groupName = element.name;
+    var checkBoxes = Document.getElementsByName(groupName);
+    for (let i= 0; i< radioBoxes.length; i++) {
+if (element.checked) {
+checkInputInput = true;
+}
+    }
+}
+
+if (element.type === "select-one") {
+if (element.value !== "") {
+dropInput = true;
+}
+}
+    
+if (element.type === "textarea") {
+if (element.value !== "" && element.value.length >0) {
+textAreaInput = true;
+}
+}
+    
+
+
+if (!textInput || !radioInput || !checkInput || !dropInput || !textAreaInput){
+    if (!textInput) {alert('Name text input field is missing a valid data');}
+     if (!radioInput) {alert('Gender radio field is missing a valid data');}
+       if (!checkInput) {alert('Hobbies checkbox field is missing a valid data');}            
+    if (!dropInput) {alert('Favorite show drop menu field is missing a valid data');} 
+        if (!textAreaInput) {alert('Comments textarea input field is missing a valid data');}                
+     return false;
+}
+}
+}
+</script>
+</head>
+<body>
+At lease one piece of data has to come in from every input type.
+<form action="test.html" method="get"><br />
+Name:<input type="text" name="fullname" placeholder="" /><br />
+Gender:<br />
+Male<input type="radio" name="gender" value="male" /
+>Female<input type="radio" name="gender" value="female" /><br />
+Hobbies<br />
+Baseball <input type="checkbox" name="hobbies[]"
+value="baseball" />
+Football <input type="checkbox" name="hobbies[]"
+value="football" />
+Hockey <input type="checkbox" name="hobbies[]" value="hockey" /
+><br />
+Favorite Show <select name="show">
+<option value="">Choose Below</option>
+<option value="ATHF">Aqua Teen Hunger Force</option>
+<option value="Family Guy">Family Guy</option>
+<option value="Simpsons">Simpsons</option>
+</select><br />
+Comments<br />
+<textarea cols="50" rows="6" name="comments">Enter Comments</textarea><br />
+<input type="submit" name="submit" value="enter me"
+onClick="return validateForm()"/>
+</form>
+
+</body>
+</html>
